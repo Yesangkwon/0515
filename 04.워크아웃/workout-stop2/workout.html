@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://kit.fontawesome.com/c36e289746.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="workout.css">
+</head>
+<body>
+  <script>
+    window.addEventListener("load", (event)=>{
+      init()
+    });
+  </script>
+  <ul class="ul"></ul>
+  <script>
+    let items = [
+      {id:1, name: '벤치프레스', count: 0},
+      {id:2, name: '렛풀다운', count: 0},
+      {id:3, name: '스쿼트', count: 0},
+    ]
+    const handleIncrement = (id) =>{
+      console.log("handleIncrement호출 성공");
+      console.log(`사용자가 선택한 운동이름의 식별자 값:${id}`);
+      const index = id - 1
+      items[index].count = items[index].count+1
+      const cnt = document.querySelector(`.workout-count${id}`)
+      cnt.innerHTML = items[index].count
+    }//arrow function
+
+    const handleDecrement = (id) =>{
+      console.log("handleDecrement호출 성공");
+      const index = id - 1
+      items[id].count = items[id].count-1
+      items[index].count = items[index].count - 1 < 0 ? 0 : items[index].count - 1;
+      const cnt = document.querySelector(`.workout-count${id}`)
+      cnt.innerHTML = items[index].count
+    }//arrow function
+
+    const handleDelete = (myid) =>{
+      console.log("handleDelete호출 성공");
+      const workouts = items.filter(row => row.id != myid)
+      items = [...workouts]
+      init()
+    }//arrow function
+    
+    const ul = document.querySelector(".ul")
+    const init = () =>{
+      let lis = ''
+      for(let i=0;i<items.length;i=i+1){
+        lis = lis +'<li class="workout">'
+        lis = lis +`<span class="workout-name">${items[i].name}</span>`
+        lis = lis + `<span class="workout-count workout-count${items[i].id}">${items[i].count}</span>`;
+        lis = lis +`<button class="workout-button workout-increase" onClick ="handleIncrement('${items[i].id}')">`
+        lis = lis +'<i class="fas fa-plus-square"></i>'
+        lis = lis +'</button>'
+        lis = lis +`<button class="workout-button workout-decrease" onClick ="handleDecrement('${items[i].id}')">`
+        lis = lis +'<i class="fas fa-minus-square"></i>'
+        lis = lis +'</button>'
+        lis = lis +`<button class="workout-button workout-delete" onClick ="handleDelete('${items[i].id}')">`
+        lis = lis +'<i class="fas fa-trash"></i>'
+        lis = lis +'</button>'
+        lis = lis +'</li>'
+      }
+      const ul = document.querySelector(".ul")
+      ul.innerHTML = lis
+    }
+  </script>
+  
+</body>
+</html>
