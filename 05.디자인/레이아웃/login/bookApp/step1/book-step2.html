@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>도서관리시스템(라우터)-step2</title>
+  <link rel="stylesheet" href="./book.css">
+  <script src="./book.js" type="module"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+  <script type="module">
+          import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-auth.js";
+      const auth = getAuth(app)
+
+      import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-auth.js";
+    //회원가입 화면에서 이메일을 입력하고 비번을 입력한 다음 초록색 회원가입 버튼을
+    //누르면 호출되는 함수
+    //함수 선언의 위치가 헤드 안에 있으면 위에서 아래로 읽어 내려가므로 이미 join함수에 대해 알고있다.
+    //함수는 객체이다. - 함수도 주소번지를 갖는다. -> 리액트의 useCallback(), useMemo() 훅을
+    //이해하는데 도움이 됨.
+    function join() {
+      //아래 함수는 파이어베이스에서 제공하는 함수이다.
+      const email = document.querySelector("email").value
+      const password = document.querySelector("#password").value
+      createUserWithEmailAndPassword(auth, email, password)
+      //비동기 처리 후에 콜백함수이다.
+      //왜냐하면 파이어베이스 클라우드 서비스에서 요청을 처리할 때 까지 기다린다. | 기다리지 않고
+      //다른 일을 보다가 응답이 오면 그 때 처리할 것을 약속한다. - 콜백함수
+      .then((response) => { // 구글에서 처리가 완료되면 파라미터 변수에 내가 응답 메세지를 넣어둘게(약속)
+        // Signed up 
+        console.log(response);
+        const user = userCredential.user;
+        //위에 response가 출력되었다면, 회원가입에 성공했다.
+        //성공하면 로그인 화면을 호출한다.(라우터)
+        location.href="/05.%EB%94%94%EC%9E%90%EC%9D%B8/%EB%A0%88%EC%9D%B4%EC%95%84%EC%9B%83/login/bookApp/step1/book-step2.html#login"
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+      });
+    } // end of join 
+  </script>
+</head>
+<body>
+  <script>
+    window.addEventListener('load', ()=>{
+      //localStorage에 이메일 값이 있는가?
+      const myEmail = localStorage.getItem("email") //
+      if(myEmail){//email이 존재한다. = 로그인o
+        //로그인은 안보이게 로그아웃으로, 이메일 출력
+        document.querySelector("#login").style.display = 'none'
+        document.querySelector("#logout").style.display = 'block'
+        document.querySelector("#myEmail").querySelector("a").textContent = myEmail
+      }
+      else {
+        document.querySelector("#login").style.display = 'block'
+        document.querySelector("#logout").style.display = 'none'
+        document.querySelector("#myEmail").style.display = 'none'
+      }
+      const logout = document.querySelector("#logout")
+      console.log(logout);
+      logout.addEventListener('click', () => {
+        localStorage.clear()
+        location.reload()
+      })
+    }) //end of onload
+    //onload 밖에서 하고 있다 = 차이가 있다 | 없다
+    // const logout = document.querySelector("#logout")
+    console.log(logout);
+
+  </script>
+  <div class="container">
+    <!--============================ 네비게이션 바 =========================-->
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+
+        <a class="navbar-brand" href="#">
+          <img src="../../../../images/images/man4.svg" alt="Avatar Logo" style="width:40px;" class="rounded-pill"> 
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/05.%EB%94%94%EC%9E%90%EC%9D%B8/%EB%A0%88%EC%9D%B4%EC%95%84%EC%9B%83/login/bookApp/step1/book-step2.html#home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/05.%EB%94%94%EC%9E%90%EC%9D%B8/%EB%A0%88%EC%9D%B4%EC%95%84%EC%9B%83/login/bookApp/step1/book-step2.html#home">도서검색</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link" href="/05.%EB%94%94%EC%9E%90%EC%9D%B8/%EB%A0%88%EC%9D%B4%EC%95%84%EC%9B%83/login/bookApp/step1/book-step2.html#board">게시판</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+            </li>
+          </ul>
+        </div>
+        <script>
+          const logout = document.querySelector("#logout")
+          console.log(logout);
+          logout.addEventListener('click', () => {
+            localStorage.clear()
+            location.reload()
+          })
+        </script>
+        <!-- 로그인, 로그아웃, 로그인한 이메일주소 -->
+        <div class="d-flex">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item" id="login">
+              <a class="nav-link active" aria-current="page" href="/05.%EB%94%94%EC%9E%90%EC%9D%B8/%EB%A0%88%EC%9D%B4%EC%95%84%EC%9B%83/login/bookApp/step1/book-step2.html#login">로그인</a>
+            </li>              
+            <li class="nav-item" id="myEmail" style="display: none;">
+              <a class="nav-link active" aria-current="page" href="/05.%EB%94%94%EC%9E%90%EC%9D%B8/%EB%A0%88%EC%9D%B4%EC%95%84%EC%9B%83/login/bookApp/step1/book-step2.html#">현사용자이메일주소</a>
+            </li>              
+            <li class="nav-item" id="logout" style="display: none;">
+              <a class="nav-link active" aria-current="page" href="#">로그아웃</a>
+            </li>              
+          </ul>
+        </div>
+      </div>
+    </nav>
+          <!-- 로그인, 로그아웃, 로그인한 이메일주소 -->
+    <!--============================ 네비게이션 바 =========================-->
+    <!--============================= [[Main]] ===========================-->
+    <div id="root">
+      <div class="row my-5 justify-content-center">
+        <div class="col-8 col-md-6 col-lg-4">
+          <h3 class="text-center mb-5">로그인</h3>
+          <form id="frm" method="post">
+            <div class="input-group my-2">
+              <div class="input-group-text">이 메 일</div>
+              <input class="form-control" id="email"/>
+            </div>
+            <div class="input-group">
+              <div class="input-group-text">비밀번호</div>
+              <input
+                class="form-control"
+                id="password"
+                type="password"\
+              />
+            </div>
+            <div class="my-3">
+              <button class="btn btn-success w-100">로그인</button>
+            </div>
+            <div class="text-end mt-3"><a href="/05.디자인/레이아웃/login/bookApp/step1/book-step2.html#join">회원가입</a></div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script type="module">
+      /*
+        process.env는 NodeJS 환경에서 사용되는 접근 방식입니다.
+        예)React 프로젝트를 생성하기 - CRA(기존방식 react18.3.1), CLI(react19.x)
+        CRA방식과 CLI 방식으로 플젝을 생성했을 때, process.env가 서로 다르다.
+        현재 코드는 브라우저에서 실행되고 있다.
+        NodeJS환경이 아니므로 process객체에 접근이 불가하다.
+      */
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js";
+      const firebaseConfig = {
+        apiKey: "AIzaSyAJi98jk5Nn1vQV5gpr8EktGZS6OXtbSnQ",
+        authDomain: "bookserch-3a97f.firebaseapp.com",
+        databaseURL: "https://bookserch-3a97f-default-rtdb.firebaseio.com",
+        projectId: "bookserch-3a97f",
+        storageBucket: "bookserch-3a97f.firebasestorage.app",
+        messagingSenderId: "1079617955056",
+        appId: "1:1079617955056:web:04fdd59c15691c6f174e35",
+        measurementId: "G-ST1V80TFPN"
+      };
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+
+
+      console.log(auth);//null, undefined
+
+      const frm = document.querySelector("#frm")
+      frm.addEventListener('submit', (e) =>{
+        e.preventDefault()
+        console.log('submit');
+        const email = document.querySelector("#email").value
+        const password = document.querySelector("#password").value
+        console.log(`사용자가 입력한 값 ${email}, ${password}`);
+        //signInWithEmailAndPassword함수를 제공받아서 로그인을 진행한다.
+        signInWithEmailAndPassword(auth, email, password)
+        .then((data) => { //then위에서 처리가 잘 되었다면 그러면 실행됨.
+          console.log(data);
+          console.log(data.user);
+          console.log(`uid ====> ${data.user.uid}`);
+          //브라우저의 저장소인 localStorage 로그인 정보를 저장해 둔다.(상태값 관리)
+          localStorage.setItem("uid", data.user.uid)
+          localStorage.setItem("email", data.user.email)
+          //화면 초기화 - 로그인 버튼이 사라지고 로그아웃 버튼이 등장한다.
+          //myEmail이 참이니?
+          //myEmail이 null or unfinded
+          document.querySelector("#login").style.display = 'none'
+          document.querySelector("#logout").style.display = 'block'
+          document.querySelector("#myEmail").style.display = 'block'
+          document.querySelector("#myEmail").querySelector("a").textContent = data.user.email
+          document.querySelector("#user-email").textContent = data.user.email;
+          // Signed in - 프로필 정보
+          const user = data.user;
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+        });
+      })//end of 로그인 버튼 submit
+
+      /////////////////////화면 라우터 시작/////////////////////////
+      const container = document.querySelector("#root")
+      window.addEventListener('hashchange', () => {
+        const id = location.hash.substring(1)
+        if(id === 'join'){ // 2개면 값만, 3개면 타입도
+          container.innerHTML = `
+          <div class="row my-5 justify-content-center">
+              <div class="col-8 col-md-6 col-lg-4">
+                <h3 class="text-center mb-5">회원가입</h3>
+                <form id="join" method="post">
+                  <div class="input-group my-2">
+                    <div class="input-group-text">이 메 일</div>
+                    <input class="form-control" id="email" value="tomato@hot.com" />
+                  </div>
+                  <div class="input-group">
+                    <div class="input-group-text">비밀번호</div>
+                    <input
+                      class="form-control"
+                      id="password"
+                      type="password"
+                      value="12345678"
+                    />
+                  </div>
+                  <div class="my-3">
+                    <button type="button" class="btn btn-success w-100" onclick="join()">회원가입</button>
+                  </div>
+                  <div class="text-end mt-3"><a href="/05.디자인/레이아웃/login/bookApp/step1/book-step2.html#login">로그인</a></div>
+                </form>
+              </div>
+            </div>
+          `
+        } //end of 회원가입
+        else if(id === 'login'){
+          container.innerHTML =`
+            <div class="row my-5 justify-content-center">
+              <div class="col-8 col-md-6 col-lg-4">
+                <h3 class="text-center mb-5">로그인</h3>
+                <form id="frm" method="post">
+                  <div class="input-group my-2">
+                    <div class="input-group-text">이 메 일</div>
+                    <input class="form-control" id="email" value="ye6350@test.com" />
+                  </div>
+                  <div class="input-group">
+                    <div class="input-group-text">비밀번호</div>
+                    <input
+                      class="form-control"
+                      id="password"
+                      type="password"
+                      value="123456"
+                    />
+                  </div>
+                  <div class="my-3">
+                    <button class="btn btn-success w-100">로그인</button>
+                  </div>
+                <div class="text-end mt-3"><a href="/05.디자인/레이아웃/login/bookApp/step1/book-step2.html#join">회원가입</a></div>
+              </form>
+            </div>
+          </div>
+          `
+        }
+        else if(id === 'home'){
+          container.innerHTML = `
+          <div class="row my-5 justify-content-center">
+            <div class="col-8 col-md-6 col-lg-4">
+              <h3 class="text-center mb-5">home</h3>
+            </div>
+          </div>
+        `
+        }
+      })//end of 화면 라우터
+
+    </script>
+    <!--============================= [[Main]] ==========================-->
+    <!--============================ [[Footer]] =========================-->
+    <div class="row my-5">
+      <div class="col">
+        <hr>
+        <h5 class="text-center">
+          Copyright 2025. TopCamp all rights reserved.
+        </h5>
+      </div>
+    </div>
+    <!--============================ [[Footer]] =========================-->
+  </div>
+</body>
+</html>
