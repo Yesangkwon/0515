@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>뉴스스목록</title>
+  <title>뉴스목록</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -15,48 +15,46 @@
   아래 코드는 핸들바스로 되어있는 템플릿을 컴파일 해야 함.
   아래 id를 찾아서 데이터셋과 binding해줌.
   -->
-  <script id="temp-news" type="text/x-handlebars-template">
-  <ul>
-    {{#each this}}
-    <li>
-      <a href="{{url}}">{{title}}</a>
-      <p>By: {{user}} | Comments: {{comments_count}}</p>
-    </li>
-    {{/each}}
-  </ul>
+  <script id="temp_news" type="text/x-handlebars-template">
+    <ul>
+      {{#each this}}
+      <li>
+        <a href="{{url}}">{{title}}</a>
+        <p>By: {{user}} | Comments: {{comments_count}}</p>
+      </li>
+      {{/each}}
+    </ul>
   </script>
   <!-- 데이터를 렌더링할 컨테이너 -->
-  <div class="root"></div>
+  <div id="root"></div>
 </body>
 <script>
-  //핸들바스 템플릿에 바인딩 될 데이터 셋이다. - 백엔드 가져올 데이터
-  const data = {//full calendar API활용 - 메뉴얼 제공
-    depts: [
-      {deptno: 10, dname: '개발1팀', loc: '서울'},
-      {deptno: 20, dname: '운영팀', loc: '제주'},
-      {deptno: 30, dname: '품질관리팀', loc: '세종'},
-    ]
-  }
-  const newsList = () =>{
-    fetch('')
+  const newsList = () => {
+    fetch('https://api.hnpwa.com/v0/news/1.json')
     .then(response => {
-      if(!response.ok) throw new Error('응답 실패 - 200이 아니면 성공이 아니면') //중지
+      if(!response.ok) throw new Error('응답 실패 - 200이아니면 성공이 아니면') //중지
       return response.json()
     })
     .then(data => {
       console.log(data);
-      //데이터를 쥐고 있다면... 핸들바스를 연동 - 컴파일 -> 태그와 자바스크립트 병합
+      //데이터를 쥐고 있다면.... 핸들바스 연동 - 컴파일->태그와자바스크립트병합
+
       //1. 템플릿 가져오기 - innerHTML
       const source = document.querySelector('#temp_news').innerHTML
       //2. 템플릿 컴파일 - compile()
       const temp = Handlebars.compile(source)
-      //3. 데이터 랜더링 - data
+      //3. 데이터 렌더링 - data
       const html = temp(data)
       //4. 결과 출력 - innerHTML
       document.querySelector('#root').innerHTML = html
-    }) 
+    })
+    .catch(error => {//에러 발생시 잡히면 브라우저가 error를 주입해줌
+      //파라미터에 error객체는 null이나 undefined아니다.
+      console.log(error);//디버깅에 필요한 메시지
+    })
     //end of fetch
-  }
+  }//end of newsList
+  //함수 호출하기
   newsList()
 </script>  
 </html>
