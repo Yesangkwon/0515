@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./test21.js" defer></script>
+    <!-- defer를 만나면 아래로 먼저 진행한다. quiz2.js실행하지 않고
+      DOM Tree 그려진다. quiz2.js보다 먼저 그린다. - null
+    -->
+    <style>
+      .selected {
+        background-color: yellow;
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <ul id="menu">
+      <li>불고기버거</li>
+      <li>치즈버거</li>
+      <li>치킨버거</li>
+    </ul>
+    <script>
+      const menuItems = document.querySelectorAll('#menu li');
+      console.log(menuItems); // 한가지 타입만 있다.
+      console.log('문자열 : ' + menuItems); // 두가지 타입이 있다.
+
+      menuItems.forEach((element, index) => {
+        console.log(element, index);
+        element.addEventListener('click', function (event) {
+        if(this.style.background === 'gray')
+        {
+          this.style.background = 'white';
+        }
+          else
+        {
+          this.style.background = 'gray';
+        }
+        });
+      });
+    </script>
+  </body>
+</html>

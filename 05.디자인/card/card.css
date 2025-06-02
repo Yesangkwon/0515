@@ -1,0 +1,77 @@
+*{
+  box-sizing: border-box;/* 1 */
+  /* border: 1px solid red;2 */
+}
+
+.card1{
+  width: 280px;/* 3 */
+  padding: 20px;/* 5 */
+  margin: 30px;/* 6 */
+  text-align: left;/* 7 */
+  background-color: lightgray;/* 8 */
+}
+
+.card1 > img {
+  width: 100%; /* 4 */
+}
+
+.card1 h1 {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.card1 p {
+  font-size: 14px;
+  line-height: 20px;
+  margin-bottom: 20px;
+}
+
+.card-info{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.user-wrap img {
+  position: relative;
+  float: left;
+  width: 32px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.user-name {
+  font-size: 14px;
+}
+
+.icon {
+  margin-top: 4px;
+}
+
+.chat,
+.favorite {
+  display: inline-block;
+}
+
+.chat {
+  margin-right: 10px;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  margin-left: 4px;
+  display: block;
+}
+
+.chat span,
+.favorite span {
+  display: block;
+  float: left;
+  font-size: 12px;
+  line-height: 16px;
+  margin-right: 2px;
+}
