@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script 
+  crossorigin src="https://unpkg.com/react@18/umd/react.development.js">
+  </script>
+  <script 
+  crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js">  
+  </script>
+  <script 
+  src="https://unpkg.com/@babel/standalone/babel.min.js">
+</script>  
+</head>
+<body>
+  <div id="root">
+  </div>
+  <script type="text/babel">
+    const rootElement = document.querySelector('#root')
+    const Message = ({text}) => {
+      //JS 영역
+      if(text.charAt(0) === text.charAt(0).toUpperCase()){
+        return (
+          <h1>
+          {/*여긴 JSX임*/}
+          {text} {/*여긴 JS임 파라미터로 받은 text임*/}
+          </h1>// 여기는 jsx임
+        )
+      }
+      else{
+        return <h3>{text}</h3>
+      }
+    } // end of message
+    const element = (
+      <>
+      <Message text="Tomato" />
+      <Message text="Kiwi" />
+      </>
+      )
+    ReactDOM.createRoot(root).render(element)
+  </script>
+</body>
+</html>
+<!-- 
+text가 대문자로 시작하면 h1
+소문자로 시작하면 h3으로 출력하는 코드를 작성하시오.
+-->

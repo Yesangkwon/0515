@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script 
+  crossorigin src="https://unpkg.com/react@18/umd/react.development.js">
+  </script>
+  <script 
+  crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js">  
+  </script>
+  <script 
+  src="https://unpkg.com/@babel/standalone/babel.min.js">
+</script>  
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const rootElement = document.querySelector('#root')
+    const App = () => {
+      //도서 목록 선언
+      const [items, setItems] = React.useState([
+      {id:1, title:'자바의정석', publish:'에이콘', price:30000},
+      {id:1, title:'리액트의정석', publish:'한빛미디어', price:35000},
+      {id:1, title:'오라클의정석', publish:'길벗', price:32000}
+    ])
+      return(
+        <>
+          <div className="app">
+            <div className="list">
+              <ul>
+                {/*여기는 주석이다. 여긴 JSX영역임*/}
+                {items &&
+                  Object.keys(items).map((key, index) => (
+                    <li key={index}>
+                      책제목 : {items[key].title}, 출판사 : {items[key].publish}
+                      </li>
+                  ))}
+                </ul>
+            </div>
+          </div>
+        </>
+      )
+    }
+    ReactDOM.createRoot(rootElement).render(<App />)
+  </script>
+</body>
+</html>
