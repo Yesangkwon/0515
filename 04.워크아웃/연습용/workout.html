@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>운동 관리</title>
+</head>
+<body>
+  <div class="container">
+    <h1>운동 관리</h1>
+
+    <!-- 접근성을 고려한 텍스트 입력 필드 -->
+    <label for="exerciseInput">운동 이름 입력</label><br />
+    <input id="exerciseInput" class="input" type="text" aria-label="운동 입력" />
+
+    <!-- 키보드 접근 가능한 버튼들 -->
+    <button class="add-btn" aria-label="운동 추가">추가</button>
+    <button class="delete-btn" aria-label="운동 삭제">삭제</button>
+
+    <!-- 운동 목록 -->
+    <div class="exercise-item" role="region" aria-label="운동1">
+      <strong>벤치프레스</strong>
+    </div>
+    <div class="exercise-item" role="region" aria-label="운동2">
+      <strong>렛풀다운</strong>
+    </div>
+    <div class="exercise-item" role="region" aria-label="운동3">
+      <strong>스쿼트</strong>
+    </div>
+  </div>
+
+  <script>
+    // search 함수 예시 - 실제 구현 필요
+    const search = (word) => {
+      console.log("검색어:", word);
+      // 검색 결과 처리 코드 작성
+    };
+
+    // 엔터 키 이벤트 처리 함수
+    const handleSearch = (event) => {
+      if (event.keyCode === 13) {
+        const keyword = document.querySelector(".input");
+        const word = keyword.value.trim();
+        if (word) {
+          search(word);
+        }
+      }
+    };
+
+    // 이벤트 리스너 연결
+    const inputEl = document.querySelector(".input");
+    inputEl.addEventListener("keydown", handleSearch);
+  </script>
+</body>
+</html>

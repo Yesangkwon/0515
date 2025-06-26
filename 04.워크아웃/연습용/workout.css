@@ -1,0 +1,37 @@
+*{
+      border: 1px solid white;
+      box-sizing: border-box;
+    }
+    .container {
+      max-width: 500px;
+      margin: 2rem auto;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      background: white;
+    }
+    button {
+      outline: none;
+      border: 0;
+      cursor: pointer;
+    }
+    button:focus {
+      outline: 2px solid #333;
+    }
+    .add-btn {
+      background-color: green;
+      color: white;
+    }
+    .delete-btn {
+      background-color: transparent;
+      border: 2px solid red;
+    }
+    .delete-btn::before {
+      content: "./쓰레기통.jpg";
+      color: darkred;
+    }
+    .exercise-item {
+      border: 1px solid black;
+      padding: 1rem;
+      margin-top: 1rem;
+      border-radius: 5px;
+    }

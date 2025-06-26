@@ -1,3 +1,4 @@
+let word;
 //비동기 통신 객체 생성하기
 const xhr = new XMLHttpRequest()
 //미리 생성을 해 둘까?
@@ -9,7 +10,7 @@ const container = document.querySelector('#root')
 const handleSearch = (event) => {
   if(13 == event.keyCode){
     const keyword = document.querySelector(".input")
-    let word = keyword.value
+    word = keyword.value
     search(word)
   }
 }

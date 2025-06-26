@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 
-<script
-  crossorigin
-  src="https://unpkg.com/react@18/umd/react.development.js"
-  ></script>
-  <script
-    crossorigin
-    src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
-  ></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>  
+<script 
+  crossorigin src="https://unpkg.com/react@18/umd/react.development.js">
+  </script>
+  <script 
+  crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js">  
+  </script>
+  <script 
+  src="https://unpkg.com/@babel/standalone/babel.min.js">
+</script>   
 
 </head>
 <body>
@@ -23,7 +23,8 @@
       const rootElement = document.querySelector('#root')
       const msg = 'Hello React!!!'
       //JSX는 태그와 JS 섞어쓰기 이다.
-      const element = <h2>{msg}</h2>
+      //리액트에서는 class가 아니라 className이라고 한다.
+      const element = <h2>{msg}</h2> // 사용자 정의 태그
       ReactDOM.createRoot(rootElement).render(element)
     </script>
   </div>
